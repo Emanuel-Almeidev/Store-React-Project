@@ -3,7 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 import background from '../assets/images/background.svg'
 
 export default createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
     *{
         padding: 0;
         margin: 0;
@@ -13,11 +13,13 @@ export default createGlobalStyle`
 
     body{
         background: #191920 url(${background}) no-repeat center top;
+        background-size: 100%;
         -webkit-font-smoothing: antialiased;
+        width: 100%;
     }
 
     body, input, button{
-        font: 14px 'Roboto', sans-serif; 
+        font: 14px Roboto, sans-serif; 
     }
 
     #root{

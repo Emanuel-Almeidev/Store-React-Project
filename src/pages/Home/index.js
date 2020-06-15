@@ -6,6 +6,8 @@ import { formatPrice }  from '../../util/format'
 
 import { ProductList } from './styles'
 
+import { connect } from 'react-redux'
+
 import api from '../../services/api'
 
 class Home extends Component{
@@ -27,6 +29,14 @@ class Home extends Component{
         })
     }
 
+    handleAddProduct = (product) => {
+        const { dispatch } = this.props;
+
+        dispatch({
+            type:'ADD_TO_CART',
+            product
+        })
+    }
     
 
     render(){
@@ -39,7 +49,7 @@ class Home extends Component{
                         alt="tênis"/>
                         <strong>{product.title}</strong>
                         <span>{product.priceFormatted}</span>
-                        <button type="button">
+                        <button type="button" onClick={() => this.handleAddProduct(product)}>
                             <div>
                                 <MdAddShoppingCart color="#fff" size={16}/> 3
                             </div>
@@ -54,4 +64,4 @@ class Home extends Component{
     }
 }
 
-export default Home;
+export default connect()(Home);
