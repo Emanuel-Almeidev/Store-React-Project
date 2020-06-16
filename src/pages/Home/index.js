@@ -6,7 +6,11 @@ import { formatPrice }  from '../../util/format'
 
 import { ProductList } from './styles'
 
+import { bindActionCreators } from 'redux'
+
 import { connect } from 'react-redux'
+
+import * as CartActions from '../../store/modules/cart/actions'
 
 import api from '../../services/api'
 
@@ -30,17 +34,13 @@ class Home extends Component{
     }
 
     handleAddProduct = (product) => {
-        const { dispatch } = this.props;
-
-        dispatch({
-            type:'ADD_TO_CART',
-            product
-        })
+        const { addToCart } = this.props;
+        addToCart(product)
     }
-    
 
     render(){
         const { products } = this.state;
+        const { amount } = this.props;
         return (
             <ProductList>
                 {products.map(product => (
@@ -51,7 +51,7 @@ class Home extends Component{
                         <span>{product.priceFormatted}</span>
                         <button type="button" onClick={() => this.handleAddProduct(product)}>
                             <div>
-                                <MdAddShoppingCart color="#fff" size={16}/> 3
+                                <MdAddShoppingCart color="#fff" size={16}/> {amount[product.id] || 0}
                             </div>
                             <span>Adicionar ao carrinho</span>
                         </button>
@@ -64,4 +64,17 @@ class Home extends Component{
     }
 }
 
-export default connect()(Home);
+const mapDispatchToProps = dispatch => (
+    bindActionCreators(CartActions, dispatch)
+)
+
+const mapStateToProps = state => ({
+    amount: state.cart.reduce((amount, product) => {
+        amount[product.id] = product.amount
+        return amount
+    }, {})
+})
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
