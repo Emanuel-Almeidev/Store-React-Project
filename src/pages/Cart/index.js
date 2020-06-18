@@ -7,7 +7,7 @@ import { formatPrice } from '../../util/format'
 
 import { Container, ProductTable, Total } from './styles'
 
-function Cart({ cart, removeFromCart, updateAmount, total}){
+function Cart({ cart, removeFromCart, updateAmountRequest, total}){
 
     return (
         <Container>
@@ -38,14 +38,14 @@ function Cart({ cart, removeFromCart, updateAmount, total}){
                                 <div>
                                     <button 
                                         type="button"
-                                        onClick={() => updateAmount(product.id, product.amount - 1)}
+                                        onClick={() => updateAmountRequest(product.id, product.amount - 1)}
                                         >
                                         <MdRemoveCircleOutline size={20} color="#7159c1"/>
                                     </button>
                                     <input type="number" readOnly value={product.amount}/>
                                     <button 
                                         type="button" 
-                                        onClick={() => updateAmount(product.id, product.amount + 1)}
+                                        onClick={() => updateAmountRequest(product.id, product.amount + 1)}
                                         >
                                         <MdAddCircleOutline size={20} color="#7159c1"/>
                                     </button> 
