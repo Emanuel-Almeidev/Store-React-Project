@@ -6,7 +6,7 @@ import { call, put, all, select, takeLatest } from 'redux-saga/effects';
 import { addToCartSuccess, updateAmountSuccess } from './actions'
 import { formatPrice } from '../../../util/format';
 
-function* addToCart({ id }){
+function* addToCart({ id, history }){
     const productExists = yield select(
         state  => state.cart.find(p => p.id === id)
     )
@@ -36,6 +36,8 @@ function* addToCart({ id }){
         };
 
         yield put(addToCartSuccess(data))
+
+        history.push('/cart')
     };
 
 }
